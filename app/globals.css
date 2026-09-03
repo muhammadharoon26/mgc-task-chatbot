@@ -1,0 +1,260 @@
+/* Flat, bordered, 8px grid. No styling points in the brief — this is here to make
+   the five answer states visually distinguishable, which is a correctness concern,
+   not a decorative one. */
+
+:root {
+  --bg: #ffffff;
+  --panel: #fafafa;
+  --ink: #14161a;
+  --muted: #5c6470;
+  --line: #d7dbe0;
+  --accent: #1a4fd6;
+  --warn-bg: #fff8e6;
+  --warn-line: #d99b1c;
+  --stop-bg: #f2f3f5;
+  --stop-line: #98a1ad;
+  --mono: ui-monospace, SFMono-Regular, "Cascadia Mono", Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px 96px;
+}
+
+header.top {
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+}
+
+header.top h1 {
+  font-size: 30px;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.status-line {
+  font: 13px/1.4 var(--mono);
+  color: var(--muted);
+  margin-left: auto;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.chip {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  color: var(--ink);
+}
+
+.chip:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chip:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.msg {
+  border: 1px solid var(--line);
+  padding: 16px;
+}
+
+.msg.user {
+  background: var(--panel);
+  border-left: 4px solid var(--ink);
+}
+
+.msg.assistant {
+  background: var(--bg);
+  border-left: 4px solid var(--accent);
+}
+
+/* A disagreement between documents must never look like a settled answer. */
+.msg.conflict {
+  background: var(--warn-bg);
+  border-left: 4px solid var(--warn-line);
+}
+
+/* Refusals: no figure is ever rendered in an answer-styled box. */
+.msg.unconfirmed,
+.msg.policy_refusal,
+.msg.not_in_documents {
+  background: var(--stop-bg);
+  border-left: 4px solid var(--stop-line);
+}
+
+.msg.error {
+  background: var(--stop-bg);
+  border-left: 4px solid #b4231f;
+}
+
+.role {
+  font: 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.badge {
+  border: 1px solid currentColor;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+
+.body {
+  white-space: pre-wrap;
+  font-size: 16px;
+}
+
+.body.pre {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  overflow-x: auto;
+}
+
+.caveats {
+  margin: 12px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.caveats li {
+  margin-bottom: 4px;
+}
+
+.escalate {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+details.sources {
+  margin-top: 12px;
+  border-top: 1px solid var(--line);
+  padding-top: 8px;
+}
+
+details.sources summary {
+  cursor: pointer;
+  font: 12px/1.4 var(--mono);
+  color: var(--muted);
+}
+
+.source {
+  border-left: 2px solid var(--line);
+  padding: 8px 0 8px 12px;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.source .where {
+  font-weight: 600;
+}
+
+.source .quote {
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.source .sid {
+  font: 11px var(--mono);
+  color: var(--muted);
+}
+
+form.composer {
+  display: flex;
+  gap: 8px;
+  border-top: 2px solid var(--ink);
+  padding-top: 16px;
+  position: sticky;
+  bottom: 0;
+  background: var(--bg);
+}
+
+form.composer input {
+  flex: 1;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+form.composer input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+button.send,
+button.reset {
+  padding: 12px 20px;
+  font-size: 15px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+}
+
+button.reset {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+button.send:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.typing {
+  font: 13px var(--mono);
+  color: var(--muted);
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 15px;
+  border: 1px dashed var(--line);
+  padding: 24px;
+}
