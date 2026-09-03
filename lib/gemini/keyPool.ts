@@ -30,7 +30,7 @@ const MAX_ATTEMPTS = 4;
 
 type KeyState = {
   index: number;
-  /** "key#2 (…a3f9)" — index plus last 4 chars. Never the key itself. */
+  /** "key#2 (...a3f9)" — index plus last 4 chars. Never the key itself. */
   label: string;
   client: GoogleGenAI;
   inFlight: number;
@@ -91,7 +91,7 @@ function loadKeys(): string[] {
 }
 
 function labelFor(index: number, key: string): string {
-  return `key#${index + 1} (…${key.slice(-4)})`;
+  return `key#${index + 1} (...${key.slice(-4)})`;
 }
 
 const states: KeyState[] = loadKeys().map((key, index) => ({
